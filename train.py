@@ -82,80 +82,80 @@ for epoch in range(epochs):
     for i, (inputs, masks) in enumerate(train_data_loader):
 
     	inputs = inputs.to(device)
-       	masks =masks.to(device)
+		masks = masks.to(device)
            
         # Clean existing gradients
-        optimizer.zero_grad()
+   	    optimizer.zero_grad()
             
         # Forward pass - compute outputs on input data using the model
-        outputs = net_model(inputs)
+   	    outputs = net_model(inputs)
             
         # Compute loss
-        loss = loss_criterion(outputs, masks)
+   	    loss = loss_criterion(outputs, masks)
             
         # Backpropagate the gradients
-        loss.backward()
+   	    loss.backward()
             
         # Update the parameters
-        optimizer.step()
+   	    optimizer.step()
             
         # Compute the total loss for the batch and add it to train_loss
-        train_loss += loss.item() * inputs.size(0)
+   	    train_loss += loss.item() * inputs.size(0)
             
         # Compute the accuracy
-        ret, predictions = t.max(outputs.data, 1)
-        correct_counts = predictions.eqmasks.data.view_as(predictions))
+   	    ret, predictions = t.max(outputs.data, 1)
+   	    correct_counts = predictions.eqmasks.data.view_as(predictions))
             
         # Convert correct_counts to float and then compute the mean
-        acc = t.mean(correct_counts.type(t.FloatTensor))
+   	    acc = t.mean(correct_counts.type(t.FloatTensor))
             
         # Compute total accuracy in the whole batch and add to train_acc
-        train_acc += acc.item() * inputs.size(0)
+   	    train_acc += acc.item() * inputs.size(0)
             
         
 
             
     # Validation - No gradient tracking needed
-    with t.no_grad():
+   	with t.no_grad():
 
         # Set to evaluation mode
-        net_model.eval()
+   	    net_model.eval()
 
         # Validation loop
-        for j, (inputs, masks) in enumerate(valid_data_loader):
-            inputs = inputs.to(device)
-            masks = masks.to(device)
+   	    for j, (inputs, masks) in enumerate(valid_data_loader):
+   	        inputs = inputs.to(device)
+   	        masks = masks.to(device)
 
             # Forward pass - compute outputs on input data using the model
-            outputs = net_model(inputs)
+   	        outputs = net_model(inputs)
 
             # Compute loss
-            loss = loss_criterion(outputs, masks)
+   	        loss = loss_criterion(outputs, masks)
 
             # Compute the total loss for the batch and add it to valid_loss
-            valid_loss += loss.item() * inputs.size(0)
+   	        valid_loss += loss.item() * inputs.size(0)
 
             # Calculate validation accuracy
-            ret, predictions = t.max(outputs.data, 1)
-            correct_counts = predictions.eq(masks.data.view_as(predictions))
+   	        ret, predictions = t.max(outputs.data, 1)
+   	        correct_counts = predictions.eq(masks.data.view_as(predictions))
 
             # Convert correct_counts to float and then compute the mean
-            acc = t.mean(correct_counts.type(t.FloatTensor))
+   	        acc = t.mean(correct_counts.type(t.FloatTensor))
 
-            # Compute total accuracy in the whole batch and add to valid_acc
-            valid_acc += acc.item() * inputs.size(0)
+   	        # Compute total accuracy in the whole batch and add to valid_acc
+   	        valid_acc += acc.item() * inputs.size(0)
             
     # Find average training loss and training accuracy
-    avg_train_loss = train_loss/train_data_size 
-    avg_train_acc = train_acc/train_data_size
+   	avg_train_loss = train_loss/train_data_size 
+   	avg_train_acc = train_acc/train_data_size
 
     # Find average training loss and training accuracy
-    avg_valid_loss = valid_loss/valid_data_size 
-    avg_valid_acc = valid_acc/valid_data_size
+   	avg_valid_loss = valid_loss/valid_data_size 
+   	avg_valid_acc = valid_acc/valid_data_size
 
-    history.append([avg_train_loss, avg_valid_loss, avg_train_acc, avg_valid_acc])
+   	history.append([avg_train_loss, avg_valid_loss, avg_train_acc, avg_valid_acc])
                 
-    epoch_end = time.time()
+   	epoch_end = time.time()
     
-    print("Epoch : {:03d}, Training: Loss: {:.4f}, Accuracy: {:.4f}%, \n Validation : Loss : {:.4f}, Accuracy: {:.4f}%, Time: {:.4f}s\n\n".format(epoch, avg_train_loss, avg_train_acc*100, avg_valid_loss, avg_valid_acc*100, epoch_end-epoch_start))
+   	print("Epoch : {:03d}, Training: Loss: {:.4f}, Accuracy: {:.4f}%, \n Validation : Loss : {:.4f}, Accuracy: {:.4f}%, Time: {:.4f}s\n\n".format(epoch, avg_train_loss, avg_train_acc*100, avg_valid_loss, avg_valid_acc*100, epoch_end-epoch_start))
             
