@@ -67,7 +67,7 @@ best_acc = 0.0
 
 for epoch in range(epochs):
     epoch_start = time.time()
-    print("Epoch: {}/{}".format(epoch+1, epochs))
+	print("Epoch: {}/{}".format(epoch+1, epochs))
         
     # Set to training mode
     net_model.train()
