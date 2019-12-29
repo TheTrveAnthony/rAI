@@ -1,5 +1,4 @@
 import torch
-import torchvision
 from PIL import Image as im
 import subprocess
 
