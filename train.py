@@ -67,7 +67,7 @@ best_acc = 0.0
 
 for epoch in range(epochs):
     epoch_start = time.time()
-	print("Epoch: {}/{}".format(epoch+1, epochs))
+    print("Epoch: {}/{}".format(epoch+1, epochs))
         
     # Set to training mode
     net_model.train()
@@ -82,7 +82,7 @@ for epoch in range(epochs):
     for i, (inputs, masks) in enumerate(train_data_loader):
 
     	inputs = inputs.to(device)
-		masks = masks.to(device)
+	    masks = masks.to(device)
            
         # Clean existing gradients
    	    optimizer.zero_grad()
@@ -116,7 +116,7 @@ for epoch in range(epochs):
 
             
     # Validation - No gradient tracking needed
-   	with t.no_grad():
+    with t.no_grad():
 
         # Set to evaluation mode
    	    net_model.eval()
@@ -146,16 +146,16 @@ for epoch in range(epochs):
    	        valid_acc += acc.item() * inputs.size(0)
             
     # Find average training loss and training accuracy
-   	avg_train_loss = train_loss/train_data_size 
-   	avg_train_acc = train_acc/train_data_size
+    avg_train_loss = train_loss/train_data_size 
+    avg_train_acc = train_acc/train_data_size
 
     # Find average training loss and training accuracy
-   	avg_valid_loss = valid_loss/valid_data_size 
-   	avg_valid_acc = valid_acc/valid_data_size
+    avg_valid_loss = valid_loss/valid_data_size 
+    avg_valid_acc = valid_acc/valid_data_size
 
-   	history.append([avg_train_loss, avg_valid_loss, avg_train_acc, avg_valid_acc])
+    history.append([avg_train_loss, avg_valid_loss, avg_train_acc, avg_valid_acc])
                 
-   	epoch_end = time.time()
+    epoch_end = time.time()
     
-   	print("Epoch : {:03d}, Training: Loss: {:.4f}, Accuracy: {:.4f}%, \n Validation : Loss : {:.4f}, Accuracy: {:.4f}%, Time: {:.4f}s\n\n".format(epoch, avg_train_loss, avg_train_acc*100, avg_valid_loss, avg_valid_acc*100, epoch_end-epoch_start))
-            
+    print("Epoch : {:03d}, Training: Loss: {:.4f}, Accuracy: {:.4f}%, \n Validation : Loss : {:.4f}, Accuracy: {:.4f}%, Time: {:.4f}s\n\n".format(epoch, avg_train_loss, avg_train_acc*100, avg_valid_loss, avg_valid_acc*100, epoch_end-epoch_start))
+    
