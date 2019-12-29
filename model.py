@@ -13,10 +13,11 @@ from torchsummary import summary
 
 
 class Net(Module):
+
     def __init__(self):
+
         super(Net, self).__init__()
 
-        ### "encoder" layers
 
         self.block1 = Sequential(
             Conv2d(1, 32, 3, padding=1),
@@ -34,28 +35,11 @@ class Net(Module):
             ReLU(),
         )
 
-        self.block3 = Sequential(
-            Conv2d(64, 128, 3, padding=1),
-            ReLU(),
-            Dropout2d(0.2),
-            Conv2d(128, 128, 3, padding=1),
-            ReLU(),
-        )
 
         self.pool = nn.MaxPool2d((2, 2)) 
 
 
-        ### "decoder" layers
-
-        self.block4 = Sequential(
-            Conv2d(192, 64, 3, padding=1),
-            ReLU(),
-            Dropout2d(0.2),
-            Conv2d(64, 64, 3, padding=1),
-            ReLU()
-        )
-
-        self.block5 = Sequential(
+        self.block3 = Sequential(
             Conv2d(96, 32, 3, padding=1),
             ReLU(),
             Dropout2d(0.2),
@@ -78,20 +62,12 @@ class Net(Module):
         out_pool1 = self.pool(out1)
 
         out2 = self.block2(out_pool1)
-        out_pool2 = self.pool(out2)
-
-        out3 = self.block3(out_pool2)
-
-        out_up1 = self.up(out3)
+        out_up1 = self.up(out2)
        
-        out4 = torch.cat((out_up1, out2), dim=1)
-        out4 = self.block4(out4)
+        out3 = torch.cat((out_up1, out1), dim=1)
+        out3 = self.block3(out3)
 
-        out_up2 = self.up(out4)
-        out5 = torch.cat((out_up2, out1), dim=1)
-        out5 = self.block5(out5)
-
-        out = self.conv2d(out5)
+        out = self.conv2d(out3)
 
         return out
 
