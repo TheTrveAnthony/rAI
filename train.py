@@ -55,7 +55,7 @@ device = t.device('cuda:0' if t.cuda.is_available() else 'cpu')# Here is the los
 loss_criterion = t.nn.CrossEntropyLoss()
 optimizer = t.optim.Adam(net_model.parameters(), lr=0.01)
 total_steps = len(train_data_loader)
-epochs = 20
+epochs = 10
 
    
 ### Now we're ready to go
