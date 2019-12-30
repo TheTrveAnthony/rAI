@@ -82,7 +82,7 @@ for epoch in range(epochs):
     for i, (inputs, masks) in enumerate(train_data_loader):
 
     	inputs = inputs.to(device)
-	    masks = masks.to(device)
+        masks = masks.to(device)
            
         # Clean existing gradients
    	    optimizer.zero_grad()
