@@ -73,5 +73,5 @@ class Net(Module):
 
 #### Let's see how it looks like :
 
-md = Net()
-summary(md, input_size=(1, 480, 270), batch_size=50, device='cpu')  ##### I divided the input shape my 10, otherwise my laptop doesn't survive to it
+#md = Net()
+#summary(md, input_size=(1, 480, 270), batch_size=50, device='cpu')  ##### I divided the input shape my 10, otherwise my laptop doesn't survive to it

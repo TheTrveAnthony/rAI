@@ -1,6 +1,7 @@
 import torch as t 
 import torchvision.transforms as trn
 from torch.utils.data import DataLoader
+import time
 
 from model import Net
 from data import FormDataSet
@@ -15,16 +16,15 @@ image_tr = {
 
     'frames': trn.Compose([
 
-    	trn.Resize(size=(480, 270)),			#### The images size is reduced by 8 to make training faster, and most of all to make my laptop survive to inferences
+    	trn.Resize(size=(720, 1280)),			#### The images size is reduced by 8 to make training faster, and most of all to make my laptop survive to inferences
         trn.ToTensor(),
-        trn.Normalize([0.485, 0.456, 0.406],
-                     [0.229, 0.224, 0.225])   
+        trn.Normalize([0.5], [0.5])   
     ]),
 
     'masks': trn.Compose([ 
 
-        trn.Resize(size=(480, 270)),
-        trn.ToTensor(),
+        trn.Resize(size=(720, 1280)),
+        trn.ToTensor()
     ])
    
 }
@@ -78,43 +78,27 @@ for epoch in range(epochs):
         
     valid_loss = 0.0
     valid_acc = 0.0
-        
+
     for i, (inputs, masks) in enumerate(train_data_loader):
 
     	inputs = inputs.to(device)
-        masks = masks.to(device)
-           
-        # Clean existing gradients
-   	    optimizer.zero_grad()
-            
-        # Forward pass - compute outputs on input data using the model
-   	    outputs = net_model(inputs)
-            
-        # Compute loss
-   	    loss = loss_criterion(outputs, masks)
-            
-        # Backpropagate the gradients
-   	    loss.backward()
-            
-        # Update the parameters
-   	    optimizer.step()
-            
-        # Compute the total loss for the batch and add it to train_loss
-   	    train_loss += loss.item() * inputs.size(0)
-            
-        # Compute the accuracy
-   	    ret, predictions = t.max(outputs.data, 1)
-   	    correct_counts = predictions.eqmasks.data.view_as(predictions))
-            
-        # Convert correct_counts to float and then compute the mean
-   	    acc = t.mean(correct_counts.type(t.FloatTensor))
-            
-        # Compute total accuracy in the whole batch and add to train_acc
-   	    train_acc += acc.item() * inputs.size(0)
-            
-        
+    	masks = masks.to(device)
 
-            
+    	optimizer.zero_grad()
+    	outputs = net_model(inputs)
+
+    	loss = loss_criterion(outputs, masks)
+    	loss.backward()
+
+    	optimizer.step()
+    	train_loss += loss.item() * inputs.size(0)
+
+    	ret, predictions = t.max(outputs.data, 1)
+    	correct_counts = predictions.eqmasks.data.view_as(predictions)
+    	acc = t.mean(correct_counts.type(t.FloatTensor))
+    	train_acc += acc.item() * inputs.size(0)
+
+
     # Validation - No gradient tracking needed
     with t.no_grad():
 
