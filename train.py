@@ -44,7 +44,7 @@ train_size = len(train_data_set)
 valid_size = len(valid_data_set)
 
 
-#### I almost forgot the most important .....
+#### Load the model
 
 net_model = Net()
 
@@ -158,4 +158,10 @@ for epoch in range(epochs):
     epoch_end = time.time()
     
     print("Epoch : {:03d}, Training: Loss: {:.4f}, Accuracy: {:.4f}%, \n Validation : Loss : {:.4f}, Accuracy: {:.4f}%, Time: {:.4f}s\n\n".format(epoch, avg_train_loss, avg_train_acc*100, avg_valid_loss, avg_valid_acc*100, epoch_end-epoch_start))
-    
+
+print("Training done.")
+
+#### I almost forgot the most important ....
+
+t.save(net_model.state_dict(), r_masks.pt)
+
