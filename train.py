@@ -47,17 +47,17 @@ valid_size = len(valid_data_set)
 #### Load the model
 
 net_model = Net()
-
+net_model.cuda()
 
 ########## Now let's define everything we need for training
 
-device = t.device('cuda:0' if t.cuda.is_available() else 'cpu')# Here is the loss and optimizer definition
+device = t.device('cuda' if t.cuda.is_available() else 'cpu')# Here is the loss and optimizer definition
 loss_criterion = t.nn.CrossEntropyLoss()
 optimizer = t.optim.Adam(net_model.parameters(), lr=0.01)
 total_steps = len(train_data_loader)
-epochs = 10
+epochs = 15
 
-   
+print(device) 
 ### Now we're ready to go
 start = time.time()
     
