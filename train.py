@@ -55,7 +55,7 @@ device = t.device('cuda' if t.cuda.is_available() else 'cpu')# Here is the loss 
 loss_criterion = t.nn.CrossEntropyLoss()
 optimizer = t.optim.Adam(net_model.parameters(), lr=0.01)
 total_steps = len(train_data_loader)
-epochs = 15
+epochs = 7
 
 print(device) 
 ### Now we're ready to go
@@ -130,22 +130,22 @@ for epoch in range(epochs):
    	        valid_acc += acc.item() * inputs.size(0)
             
     # Find average training loss and training accuracy
-    avg_train_loss = train_loss/train_data_size 
-    avg_train_acc = train_acc/train_data_size
+    avg_train_loss = train_loss/train_size 
+    avg_train_acc = train_acc/train_size
 
     # Find average training loss and training accuracy
-    avg_valid_loss = valid_loss/valid_data_size 
-    avg_valid_acc = valid_acc/valid_data_size
+    avg_valid_loss = valid_loss/valid_size 
+    avg_valid_acc = valid_acc/valid_size
 
     history.append([avg_train_loss, avg_valid_loss, avg_train_acc, avg_valid_acc])
                 
     epoch_end = time.time()
-    
+    t.save(net_model.state_dict(), "content/gdrive/My\ Drive/data_set/r_masks"+str(epoch)+".pt")
     print("Epoch : {:03d}, Training: Loss: {:.4f}, Accuracy: {:.4f}%, \n Validation : Loss : {:.4f}, Accuracy: {:.4f}%, Time: {:.4f}s\n\n".format(epoch, avg_train_loss, avg_train_acc*100, avg_valid_loss, avg_valid_acc*100, epoch_end-epoch_start))
 
 print("Training done.")
 
 #### I almost forgot the most important ....
 
-t.save(net_model.state_dict(), r_masks.pt)
+t.save(net_model.state_dict(), "r_masks.pt")
 
