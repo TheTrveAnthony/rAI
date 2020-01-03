@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from torch.nn import Sequential, Conv2d, Dropout2d, MaxPool2d, ReLU, UpsamplingNearest2d, Module
-from torchsummary import summary
+#from torchsummary import summary
 
 
 
