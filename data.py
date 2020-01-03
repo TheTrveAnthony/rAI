@@ -22,11 +22,11 @@ def split_mask(mask):
 			##### There are also values close to 50 or 94 like 47 or 92 so we gonna catch em as well
 			if pix > 0:
 
-			    if pix > 30 and pix <= 50:
-				    split[0, i, j] = 1
+				if pix > 30 and pix <= 50:
+					split[0, i, j] = 1
 
-			    if pix > 70 and pix <= 90:
-				    split[1, i, j] = 1
+				if pix > 70 and pix <= 90:
+					split[1, i, j] = 1
 
 	return split
 
@@ -51,21 +51,21 @@ class FormDataSet(Dataset):
 		fname = "-0"
 
 		if len(i) == 1:		# if i = 5 (for ex)
-		    fname += "000" 
+			fname += "000" 
 
 		elif len(i) == 2:	# if i = 41 (for ex)
-		    fname += "00" 
+			fname += "00" 
 
-	    elif len(i) == 3:	# if i = 455 (for ex)
-		    fname += "0" 
+		elif len(i) == 3:	# if i = 455 (for ex)
+			fname += "0" 
 
 		fname += i + ".png"	# when i > 999 we don't need to add zeros
 
-	    fr_name = self.dir + "/frames/" + fname
-	    m_name = self.dir + "/masks/" + fname
+		fr_name = self.dir + "/frames/" + fname
+		m_name = self.dir + "/masks/" + fname
 
-	    ##### we gotta check if the file exists cuz the data set is fucked up
-	    #pathfile = Path(fr_name)
+		##### we gotta check if the file exists cuz the data set is fucked up
+		#pathfile = Path(fr_name)
 
 
 		#### Now we can load the images and apply the transforms to them
