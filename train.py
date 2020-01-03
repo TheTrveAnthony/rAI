@@ -85,7 +85,7 @@ for epoch in range(epochs):
 			print(i)
 
 		inputs = inputs.to(device)
-		masks = masks.to(device, dtype=t.int64)
+		masks = masks.to(device)
 
 		optimizer.zero_grad()
 		outputs = net_model(inputs)
