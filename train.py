@@ -120,7 +120,8 @@ for epoch in range(epochs):
 			outputs = net_model(inputs)
 
 			# Compute loss
-			loss = loss_criterion(outputs, masks)
+			softmax = F.log_softmax(outputs, dim=1)
+			loss = loss_criterion(softmax, masks)
 
 			# Compute the total loss for the batch and add it to valid_loss
 			valid_loss += loss.item() * inputs.size(0)
