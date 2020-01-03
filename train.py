@@ -1,7 +1,6 @@
 import torch as t 
 import torchvision.transforms as trn
 from torch.utils.data import DataLoader
-import torch.nn.functional as F
 import time
 
 from model import Net
@@ -53,7 +52,7 @@ net_model.cuda()
 ########## Now let's define everything we need for training
 
 device = t.device('cuda' if t.cuda.is_available() else 'cpu')# Here is the loss and optimizer definition
-loss_criterion = t.nn.NLLLoss()
+loss_criterion = t.nn.BCELoss()
 optimizer = t.optim.Adam(net_model.parameters(), lr=0.01)
 total_steps = len(train_data_loader)
 epochs = 7
@@ -91,9 +90,8 @@ for epoch in range(epochs):
 		optimizer.zero_grad()
 		outputs = net_model(inputs)
 
-		softmax = F.log_softmax(outputs, dim=1)
 
-		loss = loss_criterion(softmax, masks)
+		loss = loss_criterion(outputs, masks)
 		loss.backward()
 
 		optimizer.step()
@@ -120,8 +118,7 @@ for epoch in range(epochs):
 			outputs = net_model(inputs)
 
 			# Compute loss
-			softmax = F.log_softmax(outputs, dim=1)
-			loss = loss_criterion(softmax, masks)
+			loss = loss_criterion(outputs, masks)
 
 			# Compute the total loss for the batch and add it to valid_loss
 			valid_loss += loss.item() * inputs.size(0)

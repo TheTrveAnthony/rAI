@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from torch.nn import Sequential, Conv2d, Dropout2d, MaxPool2d, ReLU, UpsamplingNearest2d, Module
-#from torchsummary import summary
+from torchsummary import summary
 
 
 
@@ -50,7 +50,7 @@ class Net(Module):
         self.up = UpsamplingNearest2d(scale_factor=2)
 
         ###### Final layer
-        self.conv2d = Conv2d(32, 2, kernel_size=1)
+        self.conv2d = Conv2d(32, 1, kernel_size=1)
         
 
         
