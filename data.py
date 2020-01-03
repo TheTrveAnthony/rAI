@@ -14,7 +14,7 @@ def split_mask(mask):
 		have its own channel.
 		In gray scale, the mask values are 50 and 94 """
 	mask *= 255
-	split = torch.zeros((2, mask.shape[1], mask.shape[2])).cuda()
+	split = torch.zeros((2, mask.shape[1], mask.shape[2]))
 
 	for i, line in enumerate(mask[0]):
 		for j, pix in enumerate(line):
