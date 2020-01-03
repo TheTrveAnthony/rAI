@@ -35,8 +35,8 @@ valid_data_set = FormDataSet("valid_set", image_tr)
 
 ## data loaders
 
-train_data_loader = DataLoader(train_data_set, batch_size=50, shuffle=False)
-valid_data_loader = DataLoader(valid_data_set, batch_size=50, shuffle=False)
+train_data_loader = DataLoader(train_data_set, batch_size=1, shuffle=False)
+valid_data_loader = DataLoader(valid_data_set, batch_size=1, shuffle=False)
 
 #### We'll need our data sets sizes to compute the average loss and accuracy
 
