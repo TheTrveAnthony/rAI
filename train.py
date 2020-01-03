@@ -81,6 +81,9 @@ for epoch in range(epochs):
 
     for i, (inputs, masks) in enumerate(train_data_loader):
 
+        if i%50 == 0:
+            print(i)
+
     	inputs = inputs.to(device)
     	masks = masks.to(device)
 
