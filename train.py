@@ -53,7 +53,7 @@ net_model.cuda()
 
 device = t.device('cuda' if t.cuda.is_available() else 'cpu')# Here is the loss and optimizer definition
 loss_criterion = t.nn.BCELoss()
-optimizer = t.optim.Adam(net_model.parameters(), lr=0.0001)
+optimizer = t.optim.Adam(net_model.parameters(), lr=0.000001)
 total_steps = len(train_data_loader)
 epochs = 7
 
