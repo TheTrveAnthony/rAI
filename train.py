@@ -98,7 +98,7 @@ for epoch in range(epochs):
 		train_loss += loss.item() * inputs.size(0)
 
 		ret, predictions = t.max(outputs.data, 1)
-		correct_counts = predictions.eqmasks.data.view_as(predictions)
+		correct_counts = predictions.eq(masks.data.view_as(predictions))
 		acc = t.mean(correct_counts.type(t.FloatTensor))
 		train_acc += acc.item() * inputs.size(0)
 
