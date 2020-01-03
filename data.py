@@ -14,7 +14,7 @@ def split_mask(mask):
 		have its own channel.
 		In gray scale, the mask values are 50 and 94 """
 	mask *= 255
-	split = torch.zeros((2, mask.shape[1], mask.shape[2]))
+	split = torch.zeros((2, mask.shape[1], mask.shape[2])).cuda()
 
 	for i, line in enumerate(mask[0]):
 		for j, pix in enumerate(line):
@@ -63,10 +63,6 @@ class FormDataSet(Dataset):
 
 		fr_name = self.dir + "/frames/" + fname
 		m_name = self.dir + "/masks/" + fname
-
-		##### we gotta check if the file exists cuz the data set is fucked up
-		#pathfile = Path(fr_name)
-
 
 		#### Now we can load the images and apply the transforms to them
 
