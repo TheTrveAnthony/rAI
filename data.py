@@ -44,38 +44,28 @@ class FormDataSet(Dataset):
 		### get file name for the frame and mask
 		### it will be self.dir/frames/-0i.png or self.dir/masks/-0i.png
 
-		exist = False
-		while not exist :
+		
+		
 
-		    i = str(idx)
-		    fname = "-0"
+		i = str(idx)
+		fname = "-0"
 
-		    if len(i) == 1:		# if i = 5 (for ex)
-			    fname += "000" 
+		if len(i) == 1:		# if i = 5 (for ex)
+		    fname += "000" 
 
-		    elif len(i) == 2:	# if i = 41 (for ex)
-			    fname += "00" 
+		elif len(i) == 2:	# if i = 41 (for ex)
+		    fname += "00" 
 
-		    elif len(i) == 3:	# if i = 455 (for ex)
-			    fname += "0" 
+	    elif len(i) == 3:	# if i = 455 (for ex)
+		    fname += "0" 
 
-		    fname += i + ".png"	# when i > 999 we don't need to add zeros
+		fname += i + ".png"	# when i > 999 we don't need to add zeros
 
-		    fr_name = self.dir + "/frames/" + fname
-		    m_name = self.dir + "/masks/" + fname
+	    fr_name = self.dir + "/frames/" + fname
+	    m_name = self.dir + "/masks/" + fname
 
-		    ##### we gotta check if the file exists cuz the data set is fucked up
-		    pathfile = Path(fr_name)
-
-		    if pathfile.is_file():
-		    	exist = True
-		    else:
-
-		    	if self.dir == "frames":
-		    		idx = rand(1, 1610)
-		    	else:
-		    		idx = rand(1611, 1830)	# I shouldn't have to do that...
-
+	    ##### we gotta check if the file exists cuz the data set is fucked up
+	    #pathfile = Path(fr_name)
 
 
 		#### Now we can load the images and apply the transforms to them
