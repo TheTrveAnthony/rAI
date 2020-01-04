@@ -10,8 +10,8 @@ from random import randint as rand
 
 def split_mask(mask):
 
-	""" this function will split the masks into a H*W*2 array, each mask shall
-		have its own channel.
+	""" this function will split the masks into a H*W array, each mask shall
+		have its own value.
 		In gray scale, the mask values are 50 and 94 """
 	mask *= 255
 	split = torch.zeros((mask.shape[1], mask.shape[2]))
@@ -43,9 +43,6 @@ class FormDataSet(Dataset):
 		
 		### get file name for the frame and mask
 		### it will be self.dir/frames/-0i.png or self.dir/masks/-0i.png
-
-		
-		
 
 		i = str(idx)
 		fname = "-0"
