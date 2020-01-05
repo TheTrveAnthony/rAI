@@ -1,4 +1,4 @@
-
+train_set/*
+valid_set/*
 rail/*
-
-
+*.pt
