@@ -50,7 +50,7 @@ class Net(Module):
         self.up = UpsamplingNearest2d(scale_factor=2)
 
         ###### Final layer
-        self.conv2d = Conv2d(32, 1, kernel_size=1)
+        self.conv2d = Conv2d(32, 3, kernel_size=1)
         
 
         

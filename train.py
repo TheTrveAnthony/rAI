@@ -35,8 +35,8 @@ valid_data_set = FormDataSet("valid_set", image_tr)
 
 ## data loaders
 
-train_data_loader = DataLoader(train_data_set, batch_size=1, shuffle=False)
-valid_data_loader = DataLoader(valid_data_set, batch_size=1, shuffle=False)
+train_data_loader = DataLoader(train_data_set, batch_size=1, shuffle=True)
+valid_data_loader = DataLoader(valid_data_set, batch_size=1, shuffle=True)
 
 #### We'll need our data sets sizes to compute the average loss and accuracy
 
@@ -52,10 +52,10 @@ net_model.cuda()
 ########## Now let's define everything we need for training
 
 device = t.device('cuda' if t.cuda.is_available() else 'cpu')# Here is the loss and optimizer definition
-loss_criterion = t.nn.BCEWithLogitsLoss()
+loss_criterion = t.nn.CrossEntropyLoss()
 optimizer = t.optim.Adam(net_model.parameters(), lr=0.0001)
 total_steps = len(train_data_loader)
-epochs = 1
+epochs = 5
 
 print(device) 
 ### Now we're ready to go
@@ -81,7 +81,8 @@ for epoch in range(epochs):
 
 	for i, (inputs, masks) in enumerate(train_data_loader):
 
-
+		if i%100 == 0:
+			print(i) #that's a checkpoint
 		inputs = inputs.to(device)
 		masks = masks.to(device)
 
