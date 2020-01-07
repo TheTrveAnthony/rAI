@@ -14,7 +14,7 @@ def split_mask(mask):
 		have its own value.
 		In gray scale, the mask values are 50 and 94 """
 	mask *= 255
-	split = torch.zeros((3, mask.shape[1], mask.shape[2]))
+	split = torch.zeros((1, mask.shape[1], mask.shape[2]))
 
 	for i, line in enumerate(mask[0]):
 		for j, pix in enumerate(line):
@@ -26,10 +26,8 @@ def split_mask(mask):
 					split[0, i, j] = 1
 
 				elif pix > 70 and pix <= 90:
-					split[1, i, j] = 1
+					split[0, i, j] = 2
 
-				else:
-					split[2, i, j] = 1
 
 	return split
 
