@@ -90,7 +90,7 @@ for epoch in range(epochs):
 		outputs = net_model(inputs)
 
 
-		loss = loss_criterion(outputs, masks.long())
+		loss = loss_criterion(outputs, masks)
 		loss.backward()
 
 		optimizer.step()
