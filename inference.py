@@ -2,6 +2,7 @@ import cv2 as cv
 import numpy as np
 from PIL import Image as im
 import torch
+import torch.nn.functional as F
 import torchvision.transforms as trs
 
 
@@ -31,7 +32,7 @@ def segment_frame(frame, model):
 
     model.eval()
     out = model(frame)
-  
+  	out = F.softmax(out, dim = 1)
   return out.cpu().numpy()
 
 
@@ -41,19 +42,20 @@ def mask_frame(frame, mask):
   #### first we gonna create a rgb copy of the frame to apply colored masks
 
   rgb_frame = cv.cvtColor(frame, cv.COLOR_GRAY2RGB)
-  
+  rgb_frame = cv.resize(rgb_frame, (1280, 720)) 
   #### now apply our mask to the frame
-
-  for i, col in enumerate(mask[0, 0]):
+  
+  for i, col in enumerate(mask[0]):
     for j, pix in enumerate(col):
       
-      if pix == 1:
+      p = mask[:, i, j]
+      if p[2] > 0.06:
+
+        rgb_frame[i, j] = [0, 0, 255]
+      
+      if p.argmax() == 1:
 
         rgb_frame[i, j] = [255, 0, 0]
-
-      elif pix == 2:
-
-        rgb_frame[i, j] = [0, 255, 0]
   
   return rgb_frame
 
@@ -85,8 +87,7 @@ def make_video(video, n_frames, fps, model, name):
     ### create and apply mask
     msk = segment_frame(gray, model)
     mf = mask_frame(gray, msk)
-    plt.imshow(msk[0, 0])
-    plt.show()
+
     ##### write our masked frame
 
     out.write(mf)
