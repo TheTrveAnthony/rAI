@@ -112,7 +112,7 @@ for epoch in range(epochs):
 		for j, (inputs, masks) in enumerate(valid_data_loader):
 			inputs = inputs.to(device)
 			masks = masks.to(device)
-
+			masks = masks.type(t.LongTensor).to(device)
 			# Forward pass - compute outputs on input data using the model
 			outputs = net_model(inputs)
 
