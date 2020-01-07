@@ -85,7 +85,7 @@ for epoch in range(epochs):
 		if i%100 == 0:
 			print(i) #that's a checkpoint
 		inputs = inputs.to(device)
-		masks = masks.to(device)
+		masks = masks.type(torch.LongTensor).to(device)
 
 		optimizer.zero_grad()
 		outputs = net_model(inputs)
