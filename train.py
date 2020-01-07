@@ -52,7 +52,7 @@ net_model.cuda()
 ########## Now let's define everything we need for training
 
 device = t.device('cuda' if t.cuda.is_available() else 'cpu')# Here is the loss and optimizer definition
-loss_criterion = t.nn.BCEWithLogitsLossLoss()
+loss_criterion = t.nn.BCEWithLogitsLoss()
 optimizer = t.optim.Adam(net_model.parameters(), lr=0.0001)
 total_steps = len(train_data_loader)
 epochs = 5
