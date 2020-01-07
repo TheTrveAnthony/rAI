@@ -74,7 +74,7 @@ class FormDataSet(Dataset):
 		s_mask = split_mask(mask)		### split different masks into their own channel
 
 
-		return frame, mask
+		return frame, s_mask
 	
 	def __len__(self):
 

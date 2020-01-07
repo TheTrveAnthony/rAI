@@ -88,9 +88,7 @@ for epoch in range(epochs):
 
 		optimizer.zero_grad()
 		outputs = net_model(inputs)
-		print(outputs.shape)
-		print(inputs.shape)
-		print(masks.shape)
+
 
 		loss = loss_criterion(outputs, masks.long())
 		loss.backward()
